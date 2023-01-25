@@ -16,14 +16,14 @@
   window.onscroll = function () {
     const header_navbar = document.querySelector(".navbar-area");
     const sticky = header_navbar.offsetTop;
-    const logo = document.querySelector(".navbar-brand img");
+    const logo = document.querySelector(".navbar-brand");
 
     if (window.pageYOffset > sticky) {
       header_navbar.classList.add("sticky");
-      logo.src = "./img/logo/logo.svg";
+      
     } else {
       header_navbar.classList.remove("sticky");
-      logo.src = "./img/logo/logo.svg";
+      
     }
 
     // show or hide the back-top-top button
