@@ -1,14 +1,19 @@
 <template>
   <div v-if="this.cocktail != null">
-
-    <v-card class="mx-auto  justify-center wavebg" >
+   
+    <v-card   class="mx-auto rounded  wavebg" min-width="200px" min-height="100%" variant="shaped" max-width="200px">
+      
       <a href="#features" @click="this.$emit('cocktailItem', this.cocktail,ingredientList)">
       <div class="waves "></div>
       <div class="waves "></div>
       <div class="waves "></div>
-      <v-img v-if="this.cocktail.strDrinkThumb != null" v-bind:src="this.cocktail.strDrinkThumb" width="220" cover  ></v-img>
 
-      <v-card-title class="text-center">
+          
+      <v-img  v-if="this.cocktail.strDrinkThumb != null" lazy-src="assets\img\hero\images.png" v-bind:src="this.cocktail.strDrinkThumb" width="220" cover  ></v-img>
+      <v-img v-else lazy-src="assets\img\hero\images.png" src="assets\img\hero\images.png" height="100%" cover  ></v-img>
+
+
+      <v-card-title class="text-center ">
         <h6 class="text-dark">{{ this.cocktail.strDrink.toUpperCase().substring(0, 18) }}</h6>
       </v-card-title>
 
@@ -47,6 +52,7 @@
         </div>
       </v-expand-transition>
     </v-card>
+ 
   
 </div>
 </template>
@@ -57,18 +63,24 @@ import axios from "axios";
     name: "drinkCard",
     emits: ['this.cocktail'],
     props: {
-      
-      cocktailID: Object
+      cocktailItem: Object,
     },
     data() {
       return {
         show: false,
-        cocktail:null,
+        cocktail: null,
         ingredientList:null
       }
     },
     mounted() {
-      this.getSpecificCocktail(this.cocktailID);
+      if(this.cocktailItem.strIngredient1 == undefined){
+        
+        this.getSpecificCocktail(this.cocktailItem.idDrink);
+      }else
+      {
+        this.cocktail = this.cocktailItem;
+      }
+
     }
     ,
     methods: {

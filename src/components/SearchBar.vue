@@ -29,6 +29,7 @@ export default {
       <button @click="search" style="translate:0 -10px 0;"
         class="  main-btn   col-sm-3 border-btn btn-hover wow fadeInUp p-2  align-items-stretch"
         data-wow-delay=".6s">Search</button>
+        <div class="col-sm-1 "></div>
       <button style="border-radius: 50px;translate:0 -10px 0; border-style:dashed;" @click="searchRandom()"
         class="  main-btn   col-sm-1 border-btn btn-hover btn-outline-dark wow fadeInUp p-2 p  align-items-stretch "
         data-wow-delay=".6s" :append-inner-icon="'mdi-beer'"> <font-awesome-icon icon="fa-solid fa-random" /></button>

@@ -35,63 +35,68 @@ export default {
   },
   methods: {
 
-    randomCocktail(){
-      try {
-        const response = axios.get(`https://www.thecocktaildb.com/api/json/v1/1/random.php`).then((response) => {
-          this.cocktail = response.data.drinks[0];
-          this.ingredientList = null;
-          this.cocktails = [this.cocktail];
-        
-        this.ingredientList = [
-          { ingredient: response.data.drinks[0].strIngredient1, measure: response.data.drinks[0].strMeasure1 },
+    randomCocktail() {
+      this.cocktails = [];
+      for (let i = 0; i < 3; i++) {
 
-          { ingredient: response.data.drinks[0].strIngredient2, measure: response.data.drinks[0].strMeasure2 },
-          { ingredient: response.data.drinks[0].strIngredient3, measure: response.data.drinks[0].strMeasure3 },
-          { ingredient: response.data.drinks[0].strIngredient4, measure: response.data.drinks[0].strMeasure4 },
-          { ingredient: response.data.drinks[0].strIngredient5, measure: response.data.drinks[0].strMeasure5 },
-          { ingredient: response.data.drinks[0].strIngredient6, measure: response.data.drinks[0].strMeasure6 },
-          { ingredient: response.data.drinks[0].strIngredient7, measure: response.data.drinks[0].strMeasure7 },
-          { ingredient: response.data.drinks[0].strIngredient8, measure: response.data.drinks[0].strMeasure8 },
-          { ingredient: response.data.drinks[0].strIngredient9, measure: response.data.drinks[0].strMeasure9 },
-          { ingredient: response.data.drinks[0].strIngredient10, measure: response.data.drinks[0].strMeasure10 },
-          { ingredient: response.data.drinks[0].strIngredient11, measure: response.data.drinks[0].strMeasure11 },
-          { ingredient: response.data.drinks[0].strIngredient12, measure: response.data.drinks[0].strMeasure12 },
-          { ingredient: response.data.drinks[0].strIngredient13, measure: response.data.drinks[0].strMeasure13 },
-          { ingredient: response.data.drinks[0].strIngredient14, measure: response.data.drinks[0].strMeasure14 },
-          { ingredient: response.data.drinks[0].strIngredient15, measure: response.data.drinks[0].strMeasure15 },
 
-        ];
-      });
-      } catch (error) {
-        this.drinkFound = false;
-        console.error(error);
+        try {
+          const response = axios.get(`https://www.thecocktaildb.com/api/json/v1/1/random.php`).then((response) => {
+            this.cocktail = response.data.drinks[0];
+            this.ingredientList = null;
+            this.cocktails.push(this.cocktail);
+
+            this.ingredientList = [
+              { ingredient: response.data.drinks[0].strIngredient1, measure: response.data.drinks[0].strMeasure1 },
+
+              { ingredient: response.data.drinks[0].strIngredient2, measure: response.data.drinks[0].strMeasure2 },
+              { ingredient: response.data.drinks[0].strIngredient3, measure: response.data.drinks[0].strMeasure3 },
+              { ingredient: response.data.drinks[0].strIngredient4, measure: response.data.drinks[0].strMeasure4 },
+              { ingredient: response.data.drinks[0].strIngredient5, measure: response.data.drinks[0].strMeasure5 },
+              { ingredient: response.data.drinks[0].strIngredient6, measure: response.data.drinks[0].strMeasure6 },
+              { ingredient: response.data.drinks[0].strIngredient7, measure: response.data.drinks[0].strMeasure7 },
+              { ingredient: response.data.drinks[0].strIngredient8, measure: response.data.drinks[0].strMeasure8 },
+              { ingredient: response.data.drinks[0].strIngredient9, measure: response.data.drinks[0].strMeasure9 },
+              { ingredient: response.data.drinks[0].strIngredient10, measure: response.data.drinks[0].strMeasure10 },
+              { ingredient: response.data.drinks[0].strIngredient11, measure: response.data.drinks[0].strMeasure11 },
+              { ingredient: response.data.drinks[0].strIngredient12, measure: response.data.drinks[0].strMeasure12 },
+              { ingredient: response.data.drinks[0].strIngredient13, measure: response.data.drinks[0].strMeasure13 },
+              { ingredient: response.data.drinks[0].strIngredient14, measure: response.data.drinks[0].strMeasure14 },
+              { ingredient: response.data.drinks[0].strIngredient15, measure: response.data.drinks[0].strMeasure15 },
+
+            ];
+          });
+        } catch (error) {
+          this.drinkFound = false;
+          console.error(error);
+        }
       }
     }
     ,
 
     getCocktailInfo(cocktailName) {
-      
-        const response = axios.get(`https://www.thecocktaildb.com/api/json/v1/1/${this.searchBy}${cocktailName}`).then((response) => {
-          this.cocktail = response.data.drinks[0];
-          this.cocktails = response.data.drinks;
-          this.ingredientList = null;
-          this.listIndex = this.listIndex+1;
-          this.listIndex = 1;
-          
 
-          if (response.data.drinks.length > 0) {
-            this.drinkFound = true;
-          }
-          else {
-            this.drinkFound = false;
-          }
-          
+      const response = axios.get(`https://www.thecocktaildb.com/api/json/v1/1/${this.searchBy}${cocktailName}`).then((response) => {
+        this.cocktail = response.data.drinks[0];
+        this.cocktails = response.data.drinks;
+        this.ingredientList = null;
+        this.listIndex = this.listIndex + 1;
+        this.listIndex = 1;
 
-        }).catch((error) => {
-          this.cocktails=null
+
+        if (response.data.drinks.length > 0) {
+          this.drinkFound = true;
+        }
+        else {
           this.drinkFound = false;
-          console.error(error);
-        });
+        }
+
+
+      }).catch((error) => {
+        this.cocktails = null
+        this.drinkFound = false;
+        console.error(error);
+      });
 
 
 
@@ -120,27 +125,29 @@ export default {
               Find me a drink!
               <div class="row container">
 
-              <v-radio-group v-model="searchBy" class ="col-sm-2  " inline>
-                <v-radio label="Ingredient" value="filter.php?i=" mandatory></v-radio>
-                <v-radio label="Name" value="search.php?s="></v-radio>
+                <v-radio-group v-model="searchBy" class="col-sm-2  " inline>
+                  <v-radio label="Ingredient" value="filter.php?i=" mandatory></v-radio>
+                  <v-radio label="Name" value="search.php?s="></v-radio>
 
-    
-              </v-radio-group>
-              
-            </div>
-              <SearchBar @search="getCocktailInfo" @searchRandom="randomCocktail"/>
-              <div  v-if="!this.drinkFound">
+
+                </v-radio-group>
+
+              </div>
+              <SearchBar @search="getCocktailInfo" @searchRandom="randomCocktail" />
+              <div v-if="!this.drinkFound">
                 <h1 class="wow fadeIn " data-wow-delay=".4s">No drink found</h1>
               </div>
             </h2>
 
             <div class="container">
-              <div class="row ">
+              <div class="row">
 
                 <div v-if="this.cocktails != undefined"
-                  v-for="(item, itemIndex) in this.cocktails.slice(listIndex * 3 - 3, listIndex * 3)" :key="item.idDrink"
-                  class="col-sm-4 text-center wow fadeInUp justify-center cardd" style="border-radius: 20px;">
-                  <DrinkCard :cocktailID="item.idDrink" @cocktailItem="setCocktail" @searchRandom="randomCocktail()"/>
+                  v-for="(item, itemIndex) in this.cocktails.slice(listIndex * 3 - 3, listIndex * 3)"
+                  :key="item.idDrink" class="col-sm-4 text-center wow p-3 fadeInUp  cardd"
+                  style="border-radius: 20px;">
+                  <DrinkCard :cocktailItem="item" @cocktailItem="setCocktail" 
+                    @searchRandom="randomCocktail()" />
                 </div>
               </div>
             </div>
@@ -151,7 +158,8 @@ export default {
             </div>
           </div>
         </div>
-        <div class="col-lg-3 ">
+
+        <div v-if="this.cocktails == null" class="col-lg-3 ">
           <div class="hero-img wow fadeInUp" data-wow-delay=".5s">
 
             <img src="../assets/img/hero/hero-img.jpg" alt=""
@@ -159,6 +167,7 @@ export default {
               height="600" style="border-radius:50px" />
             <img src="../assets/img/hero/hero-img.jpg" class="hero-img wow fadeInUp d-none d-md-block" v-else
               height="600" style="border-radius:50px" />
+
           </div>
         </div>
       </div>
@@ -186,7 +195,7 @@ export default {
       </div>
     </div>
 
-    <CocktailInfo v-if="cocktail" :cocktail="cocktail" :ingredientList="ingredientList"  />
+    <CocktailInfo v-if="cocktail" :cocktail="cocktail" :ingredientList="ingredientList" />
 
   </section>
   <!-- ======== feature-section end ======== -->

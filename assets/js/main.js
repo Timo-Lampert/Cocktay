@@ -17,13 +17,20 @@
     const header_navbar = document.querySelector(".navbar-area");
     const sticky = header_navbar.offsetTop;
     const logo = document.querySelector(".navbar-brand");
+    const banner1 = document.querySelector(".titletext1");
+    const banner2 = document.querySelector(".titletext2");
+    const toplogo= document.querySelector(".toplogo");
 
     if (window.pageYOffset > sticky) {
       header_navbar.classList.add("sticky");
-      
+      banner1.classList.add("text-dark");
+      banner2.classList.add("text-dark");
+      toplogo.style.filter="invert(0%)";
     } else {
       header_navbar.classList.remove("sticky");
-      
+      banner1.classList.remove("text-dark");
+      banner2.classList.remove("text-dark");
+      toplogo.style.filter="invert(100%)";
     }
 
     // show or hide the back-top-top button

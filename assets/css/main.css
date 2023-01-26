@@ -59,7 +59,7 @@ button:focus,
 }
 
 .wavebg{
-  background: radial-gradient(ellipse at center, #fffeea 0%, #fffeea 35%, #b7e8eb 100%);
+  background: radial-gradient(ellipse at center, #fffeea 0%, #ffffff 35%, #c8d9fd 100%);
   overflow: hidden;
 }
 
