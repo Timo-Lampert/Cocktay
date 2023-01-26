@@ -6,6 +6,9 @@ export default {
     }
   },
   methods: {
+    searchRandom() {
+      this.$emit('searchRandom')
+    },
     search() {
       this.$emit('search', this.cocktailName)
     }
@@ -17,14 +20,20 @@ export default {
 
 <template>
   <p>
-    
+
   <div>
-    <div class="row ">
-    <v-text-field elevation='6' :append-inner-icon="'mdi-beer'" class="col-sm-4  wow fadeInUp "  outline v-model="cocktailName" @keyup.enter="search" placeholder="Search for a cocktail" />
-    <button @click="search" class="  main-btn align-items-top col-sm-3 border-btn btn-hover wow fadeInUp "
-                data-wow-delay=".6s">Search</button>
+
+    <div class="row justify-content-between">
+      <v-text-field elevation='6' :append-inner-icon="'mdi-beer'" class="col-sm-4 wow fadeInUp  " outline
+        v-model="cocktailName" @keyup.enter="search" placeholder="Search for a cocktail" />
+      <button @click="search" style="translate:0 -10px 0;"
+        class="  main-btn   col-sm-3 border-btn btn-hover wow fadeInUp p-2  align-items-stretch"
+        data-wow-delay=".6s">Search</button>
+      <button style="border-radius: 50px;translate:0 -10px 0; border-style:dashed;" @click="searchRandom()"
+        class="  main-btn   col-sm-1 border-btn btn-hover btn-outline-dark wow fadeInUp p-2 p  align-items-stretch "
+        data-wow-delay=".6s" :append-inner-icon="'mdi-beer'"> <font-awesome-icon icon="fa-solid fa-random" /></button>
+    </div>
   </div>
-</div>
   </p>
 </template>
 

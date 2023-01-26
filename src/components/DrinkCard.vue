@@ -1,7 +1,7 @@
 <template>
   <div v-if="this.cocktail != null">
 
-    <v-card class="mx-auto justify-center wavebg" >
+    <v-card class="mx-auto  justify-center wavebg" >
       <a href="#features" @click="this.$emit('cocktailItem', this.cocktail,ingredientList)">
       <div class="waves "></div>
       <div class="waves "></div>

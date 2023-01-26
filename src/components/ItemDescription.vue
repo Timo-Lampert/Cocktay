@@ -18,7 +18,7 @@
 
         </div>
       </div>
-      <div class="col-lg-4 col-md-8 col-sm-10">
+      <div class="col-lg-5 p-1 col-md-8 col-sm-10">
         <div class="single-feature">
           <div class="icon">
             <font-awesome-icon icon="fa-solid fa-list" />
@@ -38,7 +38,7 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-4 col-md-8 col-sm-10">
+      <div class="col-lg-3 col-md-8 col-sm-10">
         <div class="single-feature">
           <div class="icon">
             <font-awesome-icon icon="fa-solid fa-lemon" />
