@@ -45,7 +45,7 @@ export default {
             this.cocktail = response.data.drinks[0];
             this.ingredientList = null;
             this.cocktails.push(this.cocktail);
-
+            this.listIndex = 1;
             this.ingredientList = [
               { ingredient: response.data.drinks[0].strIngredient1, measure: response.data.drinks[0].strMeasure1 },
 
@@ -140,16 +140,19 @@ export default {
             </h2>
 
             <div class="container">
-              <div class="row">
+              <v-container fluid>
+      <v-row dense class="">
+        <v-col class="wow fadeIn pa-2 " data-wow-delay=".4s"
+         v-if="this.cocktails!=undefined && this.cocktails!=null" v-for="item in this.cocktails.slice(listIndex * 3 - 3, listIndex * 3)"
+          :key="item.idDrink"
+          :cols="item.flex"
+        >
 
-                <div v-if="this.cocktails != undefined"
-                  v-for="(item, itemIndex) in this.cocktails.slice(listIndex * 3 - 3, listIndex * 3)"
-                  :key="item.idDrink" class="col-sm-4 text-center wow p-3 fadeInUp  cardd"
-                  style="border-radius: 20px;">
                   <DrinkCard :cocktailItem="item" @cocktailItem="setCocktail" 
                     @searchRandom="randomCocktail()" />
-                </div>
-              </div>
+                </v-col>
+              </v-row>
+            </v-container>
             </div>
             <div class="text-center col-l-1 " v-if="this.cocktails != undefined">
               <v-pagination elevation='6' @on-click="listIndex = $event" v-model="listIndex"

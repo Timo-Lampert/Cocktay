@@ -1,15 +1,15 @@
 <template>
-  <div v-if="this.cocktail != null">
+  <div v-if="this.cocktail != null" class="wow fadeInUp cardd" data-wow-delay=".9s">
    
-    <v-card   class="mx-auto rounded  wavebg" min-width="200px" min-height="100%" variant="shaped" max-width="200px">
+    <v-card   class="mx-auto rounded text-center wavebg  wow fadeInUp " data-wow-delay=".9s" min-height="200px" variant="shaped" max-width="200px">
       
-      <a href="#features" @click="this.$emit('cocktailItem', this.cocktail,ingredientList)">
+      <a href="#features" @click="this.$emit('cocktailItem', this.cocktail,this.ingredientList)">
       <div class="waves "></div>
       <div class="waves "></div>
       <div class="waves "></div>
 
           
-      <v-img  v-if="this.cocktail.strDrinkThumb != null" lazy-src="\assets\img\hero\images.png" v-bind:src="this.cocktail.strDrinkThumb" width="220" cover  ></v-img>
+      <v-img class="cardd"  v-if="this.cocktail.strDrinkThumb != null" lazy-src="\assets\img\hero\images.png" v-bind:src="this.cocktail.strDrinkThumb" width="220" cover gradient="to bottom, rgba(0,0,0,.0),rgba(20,60,100,.2), rgba(130,150,200,.8)" ></v-img>
       <v-img v-else  src="\assets\img\hero\images.png" height="100%" cover  ></v-img>
 
 
@@ -17,7 +17,7 @@
         <h6 class="text-dark">{{ this.cocktail.strDrink.toUpperCase().substring(0, 18) }}</h6>
       </v-card-title>
 
-      <v-card-subtitle>
+      <v-card-subtitle class="col-11 col-sm-8 col-md-11 col-xs-4">
 
         {{ this.cocktail.strIngredient1 }}
         ,
@@ -31,20 +31,20 @@
       </v-card-subtitle>
     </a>
       <v-card-actions>
-        <v-btn color="orange-lighten-2" variant="text">
+        <v-btn :color="this.cocktail.strAlcoholic.toLowerCase()=='alcoholic'? 'red':'green'" variant="text">
           {{cocktail.strAlcoholic}}
         </v-btn>
 
         <v-spacer></v-spacer>
 
-        <v-btn :icon="show ? 'mdi-chevron-up' : 'mdi-chevron-down'" @click="show = !show"></v-btn>
+        <v-btn color="dark" :icon="show ? 'mdi-chevron-up' : 'mdi-chevron-down'" @click="show = !show"></v-btn>
       </v-card-actions>
 
-      <v-expand-transition>
+      <v-expand-transition >
         <div v-show="show">
           <v-divider></v-divider>
 
-          <v-card-text>
+          <v-card-text class="text-dark">
             Category: {{ this.cocktail.strCategory }}
             <br>
             Alcoholic: {{ this.cocktail.strAlcoholic.toLowerCase()=="alcoholic"? "Yes":"No" }}
@@ -73,12 +73,13 @@ import axios from "axios";
       }
     },
     mounted() {
-      if(this.cocktailItem.strIngredient1 == undefined){
+      if(this.cocktailItem.strIngredient1 == undefined || this.cocktailItem.strIngredient1 == null){
         
         this.getSpecificCocktail(this.cocktailItem.idDrink);
       }else
       {
         this.cocktail = this.cocktailItem;
+        this.setIngredientlist(this.cocktailItem);
       }
 
     }
@@ -90,31 +91,34 @@ import axios from "axios";
         const response = axios.get(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`).then((response) => {
         this.cocktail = response.data.drinks[0];
         //jesus christ this is ugly
-        this.ingredientList = [
-          { ingredient: response.data.drinks[0].strIngredient1, measure: response.data.drinks[0].strMeasure1 },
-
-          { ingredient: response.data.drinks[0].strIngredient2, measure: response.data.drinks[0].strMeasure2 },
-          { ingredient: response.data.drinks[0].strIngredient3, measure: response.data.drinks[0].strMeasure3 },
-          { ingredient: response.data.drinks[0].strIngredient4, measure: response.data.drinks[0].strMeasure4 },
-          { ingredient: response.data.drinks[0].strIngredient5, measure: response.data.drinks[0].strMeasure5 },
-          { ingredient: response.data.drinks[0].strIngredient6, measure: response.data.drinks[0].strMeasure6 },
-          { ingredient: response.data.drinks[0].strIngredient7, measure: response.data.drinks[0].strMeasure7 },
-          { ingredient: response.data.drinks[0].strIngredient8, measure: response.data.drinks[0].strMeasure8 },
-          { ingredient: response.data.drinks[0].strIngredient9, measure: response.data.drinks[0].strMeasure9 },
-          { ingredient: response.data.drinks[0].strIngredient10, measure: response.data.drinks[0].strMeasure10 },
-          { ingredient: response.data.drinks[0].strIngredient11, measure: response.data.drinks[0].strMeasure11 },
-          { ingredient: response.data.drinks[0].strIngredient12, measure: response.data.drinks[0].strMeasure12 },
-          { ingredient: response.data.drinks[0].strIngredient13, measure: response.data.drinks[0].strMeasure13 },
-          { ingredient: response.data.drinks[0].strIngredient14, measure: response.data.drinks[0].strMeasure14 },
-          { ingredient: response.data.drinks[0].strIngredient15, measure: response.data.drinks[0].strMeasure15 },
-
-        ];
+          this.setIngredientlist(this.cocktail);
         
       });
 
       } catch (error) {
         console.error(error);
       }
+      },
+      setIngredientlist(cocktail){
+        
+        this.ingredientList = [
+          { ingredient:  cocktail.strIngredient1, measure: cocktail.strMeasure1 },
+          { ingredient:  cocktail.strIngredient2, measure: cocktail.strMeasure2 },
+          { ingredient:  cocktail.strIngredient3, measure: cocktail.strMeasure3 },
+          { ingredient:  cocktail.strIngredient4, measure: cocktail.strMeasure4 },
+          { ingredient:  cocktail.strIngredient5, measure: cocktail.strMeasure5 },
+          { ingredient:  cocktail.strIngredient6, measure: cocktail.strMeasure6 },
+          { ingredient:  cocktail.strIngredient7, measure: cocktail.strMeasure7 },
+          { ingredient:  cocktail.strIngredient8, measure: cocktail.strMeasure8 },
+          { ingredient:  cocktail.strIngredient9, measure: cocktail.strMeasure9 },
+          { ingredient:  cocktail.strIngredient10, measure: cocktail.strMeasure10 },
+          { ingredient:  cocktail.strIngredient11, measure: cocktail.strMeasure11 },
+          { ingredient:  cocktail.strIngredient12, measure: cocktail.strMeasure12 },
+          { ingredient:  cocktail.strIngredient13, measure: cocktail.strMeasure13 },
+          { ingredient:  cocktail.strIngredient14, measure: cocktail.strMeasure14 },
+          { ingredient:  cocktail.strIngredient15, measure: cocktail.strMeasure15 },
+
+        ];
       }
     }
   }
