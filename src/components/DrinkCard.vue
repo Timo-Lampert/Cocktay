@@ -9,8 +9,8 @@
       <div class="waves "></div>
 
           
-      <v-img  v-if="this.cocktail.strDrinkThumb != null" lazy-src="assets\img\hero\images.png" v-bind:src="this.cocktail.strDrinkThumb" width="220" cover  ></v-img>
-      <v-img v-else lazy-src="assets\img\hero\images.png" src="assets\img\hero\images.png" height="100%" cover  ></v-img>
+      <v-img  v-if="this.cocktail.strDrinkThumb != null" lazy-src="\assets\img\hero\images.png" v-bind:src="this.cocktail.strDrinkThumb" width="220" cover  ></v-img>
+      <v-img v-else  src="\assets\img\hero\images.png" height="100%" cover  ></v-img>
 
 
       <v-card-title class="text-center ">
