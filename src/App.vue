@@ -142,13 +142,13 @@ export default {
             <div class="container">
               <v-container fluid>
       <v-row dense class="">
-        <v-col class="wow fadeIn pa-2 " data-wow-delay=".4s"
-         v-if="this.cocktails!=undefined && this.cocktails!=null" v-for="item in this.cocktails.slice(listIndex * 3 - 3, listIndex * 3)"
+        <v-col class="wow fadeIn pa-2 " :data-wow-delay="'.'+itemIndex*0.2+'s'"
+         v-if="this.cocktails!=undefined && this.cocktails!=null" v-for="(item,itemIndex) in this.cocktails.slice(listIndex * 3 - 3, listIndex * 3)"
           :key="item.idDrink"
           :cols="item.flex"
         >
 
-                  <DrinkCard :cocktailItem="item" @cocktailItem="setCocktail" 
+                  <DrinkCard  :cocktailItem="item" @cocktailItem="setCocktail" 
                     @searchRandom="randomCocktail()" />
                 </v-col>
               </v-row>

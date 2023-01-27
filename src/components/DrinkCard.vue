@@ -1,7 +1,7 @@
 <template>
-  <div v-if="this.cocktail != null" class="wow fadeInUp cardd" data-wow-delay=".9s">
+  <div v-if="this.cocktail != null" class="wow fadeInUp cardd" data-wow-delay=".5s">
    
-    <v-card   class="mx-auto rounded text-center wavebg  wow fadeInUp " data-wow-delay=".9s" min-height="200px" variant="shaped" max-width="200px">
+    <v-card   class="mx-auto  rounded text-center wavebg  wow fadeInUp " data-wow-delay=".6s" min-height="200px" variant="shaped" max-width="200px">
       
       <a href="#features" @click="this.$emit('cocktailItem', this.cocktail,this.ingredientList)">
       <div class="waves "></div>
@@ -9,15 +9,14 @@
       <div class="waves "></div>
 
           
-      <v-img class="cardd"  v-if="this.cocktail.strDrinkThumb != null" lazy-src="\assets\img\hero\images.png" v-bind:src="this.cocktail.strDrinkThumb" width="220" cover gradient="to bottom, rgba(0,0,0,.0),rgba(20,60,100,.2), rgba(130,150,200,.8)" ></v-img>
+      <v-img class="cardd"  v-if="this.cocktail.strDrinkThumb != null" lazy-src="\assets\img\hero\images.png" v-bind:src="this.cocktail.strDrinkThumb" width="220px" cover gradient="to bottom, rgba(0,0,0,.0),rgba(20,60,100,.2), rgba(130,150,200,.8)" ></v-img>
       <v-img v-else  src="\assets\img\hero\images.png" height="100%" cover  ></v-img>
 
 
-      <v-card-title class="text-center ">
-        <h6 class="text-dark">{{ this.cocktail.strDrink.toUpperCase().substring(0, 18) }}</h6>
+      <v-card-title  v-text="this.cocktail.strDrink.toUpperCase().substring(0, 18).trim()"  class="text-dark text-wrap">
       </v-card-title>
-
-      <v-card-subtitle class="col-11 col-sm-8 col-md-11 col-xs-4">
+ </a>
+      <v-card-subtitle class="col-11 col-sm-8 col-md-12 col-xs-4  text-primary">
 
         {{ this.cocktail.strIngredient1 }}
         ,
@@ -25,11 +24,8 @@
         <br>
         {{ this.cocktail.strIngredient3 }}
 
-
-
-
       </v-card-subtitle>
-    </a>
+   
       <v-card-actions>
         <v-btn :color="this.cocktail.strAlcoholic.toLowerCase()=='alcoholic'? 'red':'green'" variant="text">
           {{cocktail.strAlcoholic}}
