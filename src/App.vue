@@ -46,6 +46,7 @@ export default {
             this.ingredientList = null;
             this.cocktails.push(this.cocktail);
             this.listIndex = 1;
+            this.drinkFound = this.cocktail != null;
             this.ingredientList = [
               { ingredient: response.data.drinks[0].strIngredient1, measure: response.data.drinks[0].strMeasure1 },
 
@@ -80,16 +81,8 @@ export default {
         this.cocktail = response.data.drinks[0];
         this.cocktails = response.data.drinks;
         this.ingredientList = null;
-        this.listIndex = this.listIndex + 1;
         this.listIndex = 1;
-
-
-        if (response.data.drinks.length > 0) {
-          this.drinkFound = true;
-        }
-        else {
-          this.drinkFound = false;
-        }
+        this.drinkFound = this.cocktail != null;
 
 
       }).catch((error) => {
@@ -133,16 +126,18 @@ export default {
                 </v-radio-group>
 
               </div>
+              
               <SearchBar @search="getCocktailInfo" @searchRandom="randomCocktail" />
+              
               <div v-if="!this.drinkFound">
                 <h1 class="wow fadeIn " data-wow-delay=".4s">No drink found</h1>
               </div>
             </h2>
 
-            <div class="container">
+            <div class="container flex">
               <v-container fluid>
-      <v-row dense class="">
-        <v-col class="wow fadeIn pa-2 " :data-wow-delay="'.'+itemIndex*0.2+'s'"
+      <v-row dense >
+        <v-col class="wow fadeIn  w-25 " :data-wow-delay="'.'+itemIndex*0.5+'s'"
          v-if="this.cocktails!=undefined && this.cocktails!=null" v-for="(item,itemIndex) in this.cocktails.slice(listIndex * 3 - 3, listIndex * 3)"
           :key="item.idDrink"
           :cols="item.flex"
@@ -181,7 +176,7 @@ export default {
 
   <!-- ======== feature-section start ======== -->
   <section id="features" class="feature-section pt-120">
-    <div class="container" v-if="!cocktail">
+    <v-container  v-if="!cocktail || ingredientList===null">
       <div class="row justify-content-center">
         <div class="col-lg-4 col-md-8 col-sm-10">
 
@@ -196,9 +191,9 @@ export default {
           </div>
         </div>
       </div>
-    </div>
+    </v-container>
 
-    <CocktailInfo v-if="cocktail" :cocktail="cocktail" :ingredientList="ingredientList" />
+    <CocktailInfo v-else="cocktail" :cocktail="cocktail" :ingredientList="ingredientList" />
 
   </section>
   <!-- ======== feature-section end ======== -->
