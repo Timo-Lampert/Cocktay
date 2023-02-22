@@ -1,4 +1,4 @@
-# default
+# Vue single page application to find cocktails
 
 ## Project setup
 
